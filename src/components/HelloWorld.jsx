@@ -1,6 +1,8 @@
 import React from 'react';
 
-const HelloWorld = () => <h1>Hola mundo</h1>
+// style
+import '../assets/styles/App.sass';
 
+const HelloWorld = () => <h1>Hola mundo</h1>
 
 export default HelloWorld;
