@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
+// redux
+import { connect } from 'react-redux';
 
 // hooks
-import useInitialState from '@hooks/useInitialState';
+// import useInitialState from '@hooks/useInitialState';
 
 // components
 import Header from '@components/Header';
@@ -9,48 +12,57 @@ import Search from '@components/Search';
 import Categories from '@components/Categories';
 import Carousel from '@components/Carousel';
 import CarouselItem from '@components/CarouselItem';
-import Footer from "@components/Footer";
+
+// api
+// const API = 'http://localhost:3000/initalState';
 
 // styles
 import '@styles/App.sass';
 
-const API = 'http://localhost:3000/initalState';
-
-const App = () => {
-	const initialState = useInitialState(API);
+const Home = ({ myList, trends, originals }) => {
+	// const initialState = useInitialState(API);
 
 	return	(
-		<div className="App">
+		<>
 			<Header />
-			<Search />
+			<Search isHome />
 			{
-				initialState.mylist.length > 0 &&
+				myList.length > 0 &&
 				<Categories title="Mi Lista">
 					<Carousel>
-						{initialState.mylist.map(item =>
-							<CarouselItem key={item.id} {...item}/>
+						{myList.map(item =>
+							<CarouselItem
+								key={item.id}
+								{...item}
+								isList
+							/>
 						)}
 					</Carousel>
 				</Categories>
 			}
 			<Categories title="Tendencias">
 				<Carousel>
-					{initialState.trends.map(item =>
+					{trends.map(item =>
 						<CarouselItem key={item.id} {...item}/>
 					)}
 				</Carousel>
 			</Categories>
 			<Categories title="Originales de Platzi Video">
 				<Carousel>
-					{initialState.originals.map(item =>
+					{originals.map(item =>
 						<CarouselItem key={item.id} {...item}/>
 					)}
 				</Carousel>
 			</Categories>
-			<Footer />
-		</div>
+		</>
 	)
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+	myList: state.myList,
+	trends: state.trends,
+	originals: state.originals,
+});
+
+export default connect(mapStateToProps)(Home);
 

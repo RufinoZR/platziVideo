@@ -6,7 +6,8 @@ module.exports = {
 	entry: './src/index.js',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'bundle.js'
+		filename: 'bundle.js',
+		publicPath: '/',
 	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
@@ -17,6 +18,9 @@ module.exports = {
 			'@images': path.resolve(__dirname, 'src/assets/static/'),
 			'@icons': path.resolve(__dirname, 'src/assets/static/icons/'),
 			'@hooks': path.resolve(__dirname, 'src/hooks/'),
+			'@routes': path.resolve(__dirname, 'src/routes/'),
+			'@utils': path.resolve(__dirname, 'src/utils/'),
+			// '@actions': path.resolve(__dirname, 'src/redux/actions/'),
 		}
 	},
 	module: {
@@ -58,6 +62,9 @@ module.exports = {
 				]
 			}
 		]
+	},
+	devServer: {
+		historyApiFallback: true,
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
